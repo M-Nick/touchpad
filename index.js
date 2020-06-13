@@ -9,17 +9,13 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-io.on('connection', (client) => {
-  client.on('message', (data) => {
-    console.log(data)
-  })
+io.on('connection', async (client) => {
+  actions.getScreenCapture()
   client.on('leftClick', (data) => {
     actions.leftClick()
-    console.log(`LeftClick | ping: ${new Date().getTime() - data}`)
   })
   client.on('rightClick', (data) => {
     actions.rightClick()
-    console.log(`RightClick | ping: ${new Date().getTime() - data}`)
   })
   client.on('touchmove', (data) => {
     const coords = JSON.parse(data)
@@ -28,7 +24,11 @@ io.on('connection', (client) => {
     coords.y *= n
     actions.mouseMove(coords.x, coords.y)
   })
-  client.on('disconnect', () => {})
+  client.on('disconnect', () => { })
+  let time = new Date().valueOf()
+  const interval = setInterval(async () => {
+    io.sockets.emit('img', await actions.getScreenCapture())
+  }, 1300)
 })
 
 http.listen(4040, '0.0.0.0', () => {

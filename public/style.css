@@ -4,12 +4,37 @@
   --margin: 8px;
 }
 
-.touchpad {
+html {
+  overflow: hidden;
+}
+
+.touchpad-wrapper {
+  --width: calc(100vmin - 16px);
   position: relative;
   margin: var(--margin);
-  height: 60vw;
+  height: calc(var(--width) * 0.6);
+  width: var(--width);
   background: var(--bg-color);
-  border-radius: var(--bd-rs);
+}
+
+.touchpad-cursor {
+  position: absolute;
+  display: block;
+  width: 3px;
+  height: 3px;
+  background-color:red;
+  box-shadow: 0 0 2px 2px #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.touchpad {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: var(--bg-color);
 }
 
 .buttons {

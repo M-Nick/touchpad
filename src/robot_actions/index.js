@@ -1,5 +1,10 @@
 // Move the mouse across the screen as a sine wave.
 const robot = require('robotjs')
+const screenshot = require('screenshot-desktop')
+ 
+
+
+
 
 // Speed up the mouse.
 // robot.setMouseDelay(2)
@@ -13,7 +18,7 @@ const robot = require('robotjs')
 //   y = height * Math.sin((twoPI * x) / width) + height
 //   robot.moveMouse(x, y)
 // }
-
+// imageminJpegtran
 module.exports = {
   leftClick: robot.mouseClick,
   rightClick: robot.mouseClick.bind(null, 'right'),
@@ -25,8 +30,18 @@ module.exports = {
     if (result.x < 0) result.x = 1
     if (result.y > screen.height) result.y = screen.height - 1
     if (result.y < 15) result.y = 15
-    console.log('screen', screen)
-    console.log('result', result)
     robot.moveMouse(result.x - dx, result.y - dy)
   },
+  getScreenCapture: async (x = 0, y = 0, width = 128, height = 96) => {
+    // const buffer = robot.screen.capture(x, y, width, height).image
+    // const base64 = buffer.toString('base64')
+    const res = await new Promise((resolve, reject) => {
+      screenshot({ format: 'png' }).then((img) => {
+        resolve(img)
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+    return {img: res, mouse: robot.getMousePos(), screen: robot.getScreenSize()}
+  }
 }
