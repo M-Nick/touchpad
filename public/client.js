@@ -31,7 +31,6 @@ socket.on('connect', () => {
   console.log('connect http://192.168.0.126:4040', socket)
 })
 socket.on('img', (msg) => {
-  console.log(msg.mouse)
   var blob = new Blob( [ msg.img ], { type: "image/jpeg" } );
   var urlCreator = window.URL || window.webkitURL;
   var imageUrl = urlCreator.createObjectURL(blob);

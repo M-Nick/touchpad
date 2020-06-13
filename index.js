@@ -10,9 +10,6 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', async (client) => {
-  client.on('message', (data) => {
-    console.log(data)
-  })
   actions.getScreenCapture()
   client.on('leftClick', (data) => {
     actions.leftClick()
@@ -28,7 +25,10 @@ io.on('connection', async (client) => {
     actions.mouseMove(coords.x, coords.y)
   })
   client.on('disconnect', () => { })
-  const interval = setInterval(async () => io.sockets.emit('img', await actions.getScreenCapture()), 1250)
+  let time = new Date().valueOf()
+  const interval = setInterval(async () => {
+    io.sockets.emit('img', await actions.getScreenCapture())
+  }, 1300)
 })
 
 http.listen(4040, '0.0.0.0', () => {
