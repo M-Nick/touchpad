@@ -1,0 +1,28 @@
+:root {
+  --bg-color: rgb(158, 158, 158);
+  --bd-rs: 10px;
+  --margin: 8px;
+}
+
+.touchpad {
+  position: relative;
+  margin: var(--margin);
+  height: 60vw;
+  background: var(--bg-color);
+  border-radius: var(--bd-rs);
+}
+
+.buttons {
+  margin: var(--margin);
+  height: 20vw;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: var(--bg-color);
+  border-radius: var(--bd-rs);
+  width: calc(50% - var(--margin) / 2);
+  height: 100%;
+}
