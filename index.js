@@ -31,6 +31,9 @@ io.on('connection', async (client) => {
   }, 1300)
 })
 
-http.listen(4040, '0.0.0.0', () => {
-  console.log('listening on 192.168.0.126:4040')
+const port = 4040
+const ip = require('./src/helpers/getLocalIp.js')
+
+http.listen(port, '0.0.0.0', () => {
+  console.log(`listening on http://${ip}:${port}`)
 })
